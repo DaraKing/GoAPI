@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.js</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+    <div style="margin-top: 50px">
+        <input v-model="search" placeholder="Search" class="searchInput"/>
+    </div>
+    <table>
+            <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th colspan="2"></th>
+            </tr>
+            <tr v-for="result in results | filterBy search" :class="{editing: user == editedUser}" v-cloak>
+                <td>((result.id))</td>
+                <td>
+                    ((result.first_name))
+                </td>
+                <td>
+                    ((result.last_name))
+                </td>
+                <td>
+                    ((result.age))
+                </td>
+                <td>
+                    ((result.email))
+                </td>
+                <td>
+                    ((result.gender))
+                </td>
+                <td>
+                    <div class="edit">
+                        <!--<router-link to="/edit">-->
+                        <!-- <button id="edit((result.id))" class="editButton">Edit</button> -->
+                            Edit
+                        <!--</router-link>-->
+                    </div>
+                </td>
+                <td id="((result.id))" v-on:click="onClick($event)">X</td>
+            </tr>
+    </table>
+
+    <!--<router-link to="/foo">Go to Foo</router-link>-->
+    <!--<router-link to="/bar">Go to Bar</router-link>-->
+
+    <router-link to="/foo">Mrs</router-link>
+
+    <!--<router-link to="/addUser">Go to Bar</router-link>-->
+    <!--
+    <div id="form">
+        <input type="text" v-model="firstName" class="searchInput" name="firstName" placeholder="First name"/><div></div>
+
+        <input type="text" v-model="lastName" class="searchInput" name="lastName" placeholder="Last name"/><div></div>
+
+        <input type="number" v-model="age" name="age" class="searchInput" placeholder="Age"/><div></div>
+
+        <input type="radio" name="gender" value="male" v-model="gender"> Male<div></div>
+        <input type="radio" name="gender" value="female" v-model="gender"> Female<div></div>
+
+        <input type="text" v-model="email" class="searchInput" name="email" placeholder="Email"> <div></div>
+
+        <input type="button" v-on:click="submit" id="submit-button" class="inputButton" value="Submit"/>
+    </div>
+    -->
+    <router-view></router-view>
+</div>
+
+
+
+<!--------------------------- SCRIPT TAGS ------------------------------------------->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="script/script.js"></script>
+</body>
+</html>

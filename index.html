@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Router</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<div id="app">
+    <template>
+    <header>
+        <div class="siteTitle">
+            GoLang API
+        </div>
+        <div class="headerButton">
+            <button id="show-modal" class="addUserBtn" @click="showModalFunc(false)">Add user</button>
+        </div>
+    </header>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th colspan="2"></th>
+        </tr>
+        <tr v-for="result in results">
+
+            <modal v-if="showModal" @close="showModal = false" :user="selectedUser"></modal>
+
+            <td>{{result.id}}</td>
+            <td>{{result.first_name}}</td>
+            <td>{{result.last_name}}</td>
+            <td>{{result.age}}</td>
+            <td>{{result.email}}</td>
+            <td>{{result.gender}}</td>
+            <td>
+                <div class="edit" @click="showModalFunc(result)">
+                    Edit
+                </div>
+            </td>
+            <td :id="result.id" @click="deleteUser($event)">X</td>
+        </tr>
+    </table>
+
+    <footer>
+        Created by Dario Knezović #sportlife
+    </footer>
+    </template>
+</div>
+
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+
+                    <div class="form">
+
+                        <input type="text" v-model="firstName" class="searchInput" name="firstName" placeholder="First name" spellcheck="false"/><div></div>
+                        <input type="text" v-model="lastName" class="searchInput" name="lastName" placeholder="Last name" spellcheck="false"/><div></div>
+                        <input type="number" v-model="age" name="age" class="searchInput" placeholder="Age" spellcheck="false" /><div></div>
+                        <input type="radio" name="gender" value="male" v-model="gender"> Male<div></div>
+                        <input type="radio" name="gender" value="female" v-model="gender"> Female<div></div>
+                        <input type="text" v-model="email" class="searchInput" name="email" placeholder="Email" spellcheck="false"> <div></div>
+
+                        <div class="message">
+                            {{message}}
+                        </div>
+
+                        <input type="button" v-if="userDefined" @click="editUser" class="inputButton" value="Edit user"/>
+                        <input type="button" v-if="!userDefined" @click="addUser" class="inputButton" value="Add user"/>
+
+                        <button class="modal-default-button inputButton" @click="$emit('close')" style="margin-left: 10px;">
+                            Exit modal
+                        </button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
+
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+<!--<script src="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.js"></script>-->
+<!--<script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js"></script>
+<script src="script/router.js"></script>
+</body>
+</html>
